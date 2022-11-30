@@ -7,20 +7,19 @@ TODO
 # Imports
 from sklearn import svm
 import pandas as pd
-from IPython.display import display
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_curve, roc_auc_score
 import warnings
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import json
-import re
+import matplotlib.pyplot as plt
 
 NUMBER_OF_ITERATIONS = 1 # Number of iterations to run
-NUMBER_OF_FEATURES = 150 # Number of features to use
-VARIANCE_THRESHOLD = 0.005 # Variance threshold, between 0.0 and 1.0
-SVM_KERNEL = None # SVM kernel to use, None = 'rbf'
+NUMBER_OF_FEATURES = 75 # Number of features to use
+VARIANCE_THRESHOLD = 0.001 # Variance threshold, between 0.0 and 1.0
+SVM_KERNEL = 'linear' # SVM kernel to use. 'rbf', 'linear', 'poly', 'sigmoid', 'precomputed'.
 
 
 def main(num_features, var_thresh, svm_kernel=None):
@@ -31,6 +30,7 @@ def main(num_features, var_thresh, svm_kernel=None):
     # Build dataframe and remove instances with null attributes
     df = pd.read_csv('chemical_compounds.csv')
     original_total_tuples = df.shape[0]
+    df.drop(labels=['CID'], axis=1, inplace=True)
     df.dropna(inplace=True)
     updated_total_tuples = df.shape[0]
     print(str(original_total_tuples - updated_total_tuples) + ' instances had null attributes. Instances removed.')
@@ -62,7 +62,7 @@ def main(num_features, var_thresh, svm_kernel=None):
     variance_threshold.fit(x_data)
     constant_columns = [column for column in x_data.columns if column not in x_data.columns[variance_threshold.get_support()]]
     x_data.drop(constant_columns, axis=1, inplace=True)
-    print(str(len(constant_columns)) + ' column(s) had a variance of 0.5% or below. Columns were removed.\n')
+    print(str(len(constant_columns)) + ' column(s) had a variance of ' + str(VARIANCE_THRESHOLD) + ' or below. Columns were removed.\n')
     del variance_threshold
     del constant_columns
 
@@ -80,11 +80,7 @@ def main(num_features, var_thresh, svm_kernel=None):
     X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.2, shuffle=True)
 
     # Build SVM model
-    if svm_kernel == None:
-        clf = svm.SVC()
-        svm_kernel = 'rbf'
-    else:
-        clf = svm.SVC(kernel=svm_kernel)
+    clf = svm.SVC(kernel=svm_kernel)
     clf.fit(X_train, y_train)
 
     # Predict
@@ -104,7 +100,13 @@ def main(num_features, var_thresh, svm_kernel=None):
     print("Recall: " + str(recall))
     print("F1-Score: " + str(f1))
     print("Accuracy: " + str(accuracy))
-    return num_features, var_thresh, svm_kernel, f1, accuracy, most_important_features
+    false_positive_rate, true_positive_rate, threshold = roc_curve(y_test['Class'].to_numpy(), predictions)
+    plt.plot(false_positive_rate, true_positive_rate)
+    plt.xlabel("False Positive Rate")
+    plt.ylabel("True Positive Rate")
+    plt.title("ROC-Curve")
+    area_under_roc = roc_auc_score(y_test['Class'].to_numpy(), predictions)
+    return num_features, var_thresh, svm_kernel, f1, accuracy, most_important_features, plt, area_under_roc
 
 
 if __name__ == '__main__':
@@ -131,23 +133,30 @@ if __name__ == '__main__':
         i = i + 1
         print('\n===========Iteration ' + str(i) + '===========\n')
         if SVM_KERNEL == None:
-            num_features, var_threshold, kernel, f1score, accuracy, features_used = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD)
+            num_features, var_threshold, kernel, f1score, accuracy, features_used, roc, area_under_roc = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD)
         else:
-            num_features, var_threshold, kernel, f1score, accuracy, features_used = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD, svm_kernel=SVM_KERNEL)
-        features_used = str(features_used)
-        features_used = features_used.replace("Index(", "")
-        features_used = features_used.replace(")", "")
-        features_used = features_used.replace("\n", "")
-        features_used = features_used[:-21]
-        features_used = re.sub(' +', ' ', features_used)
+            num_features, var_threshold, kernel, f1score, accuracy, features_used, roc, area_under_roc = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD, svm_kernel=SVM_KERNEL)
         log_book["Iteration " + str(i)] = {
             'num_features': num_features,
             'variance_threshold': var_threshold,
             'kernel': kernel,
             'f1_score': f1score,
             'accuracy': accuracy,
-            'features_used': features_used
+            'area_under_roc': area_under_roc,
+            'features_used': str(features_used)
         }
+        roc.savefig('Iteration ' + str(i) + ' ROC Curve')
+    average_f1_score = 0
+    average_accuracy = 0
+    for iteration in log_book:
+        average_f1_score = average_f1_score + log_book[iteration]['f1_score']
+        average_accuracy = average_accuracy + log_book[iteration]['accuracy']
+    average_accuracy = average_accuracy / NUMBER_OF_ITERATIONS
+    average_f1_score = average_f1_score / NUMBER_OF_ITERATIONS
+    log_book["Summary"] = {
+        'average_f1_score': average_f1_score,
+        'average_accuracy': average_accuracy
+    }
     with open("log_book.json", "w") as write_file:
         json.dump(log_book, write_file, indent=4)
     
