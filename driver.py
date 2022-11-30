@@ -18,7 +18,7 @@ import json
 import re
 
 NUMBER_OF_ITERATIONS = 1 # Number of iterations to run
-NUMBER_OF_FEATURES = 100 # Number of features to use
+NUMBER_OF_FEATURES = 150 # Number of features to use
 VARIANCE_THRESHOLD = 0.005 # Variance threshold, between 0.0 and 1.0
 SVM_KERNEL = None # SVM kernel to use, None = 'rbf'
 
@@ -75,8 +75,6 @@ def main(num_features, var_thresh, svm_kernel=None):
     most_important_features = all_features[sorted_importances_index]
     most_important_features = most_important_features[-1 * num_features:]
     x_data = x_data[most_important_features]
-
-
 
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.2, shuffle=True)
@@ -140,6 +138,7 @@ if __name__ == '__main__':
         features_used = features_used.replace("Index(", "")
         features_used = features_used.replace(")", "")
         features_used = features_used.replace("\n", "")
+        features_used = features_used[:-21]
         features_used = re.sub(' +', ' ', features_used)
         log_book["Iteration " + str(i)] = {
             'num_features': num_features,
