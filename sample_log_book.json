@@ -1,15 +1,36 @@
 {
     "Iteration 1": {
+        "f1_score": 0.9583333333333334,
+        "accuracy": 0.9583333333333334,
+        "area_under_roc": 0.96
+    },
+    "Iteration 2": {
+        "f1_score": 0.9393939393939394,
+        "accuracy": 0.9166666666666666,
+        "area_under_roc": 0.890625
+    },
+    "Iteration 3": {
+        "f1_score": 0.9523809523809523,
+        "accuracy": 0.9375,
+        "area_under_roc": 0.9166666666666667
+    },
+    "Iteration 4": {
+        "f1_score": 0.9841269841269841,
+        "accuracy": 0.9791666666666666,
+        "area_under_roc": 0.984375
+    },
+    "Iteration 5": {
+        "f1_score": 1.0,
+        "accuracy": 1.0,
+        "area_under_roc": 1.0
+    },
+    "Summary": {
         "num_features": 75,
         "variance_threshold": 0.001,
         "kernel": "linear",
-        "f1_score": 0.9411764705882354,
-        "accuracy": 0.9166666666666666,
-        "area_under_roc": 0.9186813186813186,
-        "features_used": "Index(['b_rotN', 'b_max1len', 'a_IC', 'vsurf_ID3', 'Kier3', 'GCUT_SLOGP_2',\n       'E_sol', 'SMR_VSA2', 'VDistEq', 'chi1_C', 'PEOE_PC+', 'PEOE_VSA+3',\n       'chi1v_C', 'a_nS', 'GCUT_SMR_3', 'BCUT_SLOGP_2', 'GCUT_SLOGP_0',\n       'vsa_other', 'a_don', 'vsurf_IW1', 'Kier2', 'vsa_pol', 'pmi1',\n       'vsurf_IW5', 'SlogP_VSA1', 'b_1rotN', 'PEOE_VSA_NEG', 'GCUT_SLOGP_3',\n       'PEOE_PC-', 'npr2', 'a_nN', 'PEOE_VSA+1', 'BCUT_SMR_0', 'GCUT_PEOE_0',\n       'GCUT_SLOGP_1', 'a_aro', 'SlogP_VSA7', 'BCUT_SLOGP_0', 'MNDO_HF',\n       'vsa_hyd', 'GCUT_SMR_0', 'bpol', 'GCUT_SMR_2', 'PEOE_VSA_FPOL',\n       'PEOE_VSA-6', 'PEOE_VSA-3', 'b_rotR', 'BCUT_PEOE_0', 'PEOE_VSA_FHYD',\n       'SlogP_VSA0', 'PUBCHEM_CACTVS_TAUTO_COUNT', 'PEOE_VSA_POL',\n       'BCUT_SMR_3', 'E_ang', 'PEOE_VSA_POS', 'GCUT_PEOE_3', 'SMR_VSA6',\n       'PEOE_VSA_FPOS', 'PEOE_VSA+2', 'SlogP_VSA3', 'BCUT_PEOE_3', 'logS',\n       'KierA3', 'PEOE_VSA-4', 'b_1rotR', 'PM3_LUMO', 'PEOE_VSA_FNEG',\n       'vsa_acc', 'MNDO_LUMO', 'SMR_VSA4', 'E_ele', 'SMR_VSA3', 'GCUT_PEOE_1',\n       'AM1_LUMO', 'SlogP_VSA5'],\n      dtype='object')"
-    },
-    "Summary": {
-        "average_f1_score": 0.9411764705882354,
-        "average_accuracy": 0.9166666666666666
+        "average_f1_score": 0.9668470418470418,
+        "average_accuracy": 0.9583333333333333,
+        "average_auc": 0.9503333333333334,
+        "features_present_in_all": "['AM1_LUMO', 'BCUT_PEOE_3', 'BCUT_SLOGP_0', 'E_ang', 'E_ele', 'GCUT_PEOE_1', 'GCUT_PEOE_3', 'GCUT_SMR_0', 'GCUT_SMR_3', 'Kier3', 'MNDO_LUMO', 'PEOE_VSA+2', 'PEOE_VSA-3', 'PEOE_VSA-4', 'PEOE_VSA-5', 'PEOE_VSA_FNEG', 'PEOE_VSA_FPOS', 'PEOE_VSA_NEG', 'PEOE_VSA_PNEG', 'PM3_LUMO', 'SMR_VSA3', 'SMR_VSA4', 'SMR_VSA6', 'SlogP_VSA3', 'SlogP_VSA5', 'SlogP_VSA7', 'b_1rotR', 'b_rotR', 'chi1v_C', 'logS', 'npr2', 'std_dim2', 'vsa_acc', 'vsa_other', 'vsurf_IW1']"
     }
 }
