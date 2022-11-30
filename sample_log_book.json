@@ -1,42 +1,15 @@
 {
     "Iteration 1": {
-        "num_features": 100,
-        "variance_threshold": 0.005,
-        "kernel": "rbf",
-        "f1_score": 0.972972972972973,
-        "accuracy": 0.9583333333333334,
-        "features_used": "['TPSA', 'vsurf_W3', 'a_nH', 'SMR_VSA5', 'a_count', 'std_dim2', 'a_nS', 'MNDO_E', 'rgyr', 'PM3_HF', 'a_aro', 'BCUT_SLOGP_3', 'npr1', 'vsurf_IW5', 'pmi', 'a_acc', 'b_count', 'a_donacc', 'PEOE_PC+', 'E_nb', 'bpol', 'PEOE_VSA+5', 'chi0v_C', 'SlogP_VSA3', 'PEOE_VSA+6', 'chi1v', 'PEOE_VSA+0', 'Kier3', 'pmi1', 'opr_brigid', 'PUBCHEM_CACTVS_TAUTO_COUNT', 'balabanJ', 'PUBCHEM_MOLECULAR_WEIGHT', 'opr_nrot', 'E_strain', 'vsurf_Wp5', 'MNDO_Eele', 'E_stb', 'PEOE_VSA_POL', 'SlogP_VSA0', 'SMR_VSA7', 'E_oop', 'Q_VSA_HYD', 'PEOE_VSA_PPOS', 'SMR_VSA1', 'SlogP_VSA7', 'E_str', 'vsurf_EWmin1', 'KierFlex', 'GCUT_SLOGP_0', 'vsa_hyd', 'vsurf_IW1', 'a_nO', 'E', 'zagreb', 'chi1v_C', 'vsa_pol', 'PEOE_VSA_POS', 'lip_acc', 'Kier2', 'PEOE_VSA-5', 'BCUT_SMR_3', 'vsurf_IW6', 'lip_don', 'KierA2', 'PUBCHEM_CACTVS_TPSA', 'b_max1len', 'KierA1', 'BCUT_PEOE_3', 'diameter', 'SMR_VSA2', 'E_sol', 'BCUT_PEOE_0', 'PEOE_VSA_PNEG', 'vsa_other', 'GCUT_PEOE_3', 'vsa_acc', 'PEOE_VSA-6', 'b_rotN', 'KierA3', 'SMR_VSA6', 'BCUT_SLOGP_0', 'PEOE_VSA+2', 'npr2', 'SlogP_VSA1', 'E_ang', 'logS', 'PEOE_VSA_FPOS', 'GCUT_SMR_3', 'SMR_VSA4', 'AM1_LUMO', 'PEOE_VSA_NEG', 'E_ele', 'PEOE_VSA_FNEG', 'PM3_LUMO', 'SMR_VSA3', 'SlogP_VSA5', 'PEOE_VSA-4', 'MNDO_LUMO', 'CID'], dtype='object'"
-    },
-    "Iteration 2": {
-        "num_features": 100,
-        "variance_threshold": 0.005,
-        "kernel": "rbf",
-        "f1_score": 0.9454545454545454,
-        "accuracy": 0.9375,
-        "features_used": "['vsa_hyd', 'ASA_H', 'vsurf_ID3', 'vsurf_W4', 'vsurf_EWmin2', 'PEOE_PC+', 'Kier2', 'KierA2', 'std_dim2', 'opr_nrot', 'vsurf_IW4', 'E_oop', 'npr1', 'vsurf_HB5', 'PEOE_VSA+6', 'vsurf_ID4', 'lip_acc', 'vsurf_HB4', 'PUBCHEM_MOLECULAR_WEIGHT', 'AM1_Eele', 'weinerPol', 'VDistEq', 'vsurf_Wp5', 'GCUT_SLOGP_0', 'BCUT_SLOGP_3', 'SMR_VSA1', 'vsurf_Wp3', 'BCUT_PEOE_0', 'a_donacc', 'TPSA', 'PM3_HF', 'balabanJ', 'a_acc', 'std_dim1', 'vsurf_EWmin3', 'PUBCHEM_CACTVS_TPSA', 'PEOE_VSA+1', 'PEOE_VSA+0', 'BCUT_SMR_0', 'PUBCHEM_XLOGP3_AA', 'SMR_VSA7', 'logP(o/w', 'E_stb', 'E_sol', 'SlogP_VSA1', 'a_nO', 'a_count', 'chi1_C', 'b_ar', 'pmi1', 'vsurf_IW1', 'PEOE_VSA+4', 'KierA3', 'lip_don', 'a_IC', 'b_1rotN', 'PEOE_VSA_PNEG', 'BCUT_PEOE_3', 'vdw_area', 'Kier3', 'chi1v_C', 'vsurf_Wp2', 'E_ele', 'E', 'bpol', 'opr_brigid', 'vsurf_IW6', 'rsynth', 'E_nb', 'PEOE_PC-', 'SlogP_VSA3', 'PUBCHEM_CACTVS_TAUTO_COUNT', 'MNDO_HF', 'npr2', 'SMR_VSA4', 'PEOE_VSA-5', 'vsa_pol', 'PEOE_VSA_FNEG', 'BCUT_SLOGP_0', 'SMR_VSA6', 'PEOE_VSA-4', 'PEOE_VSA+2', 'GCUT_PEOE_3', 'SlogP_VSA0', 'vsa_other', 'vsa_acc', 'SMR_VSA2', 'PEOE_VSA-3', 'PM3_LUMO', 'BCUT_SMR_3', 'PEOE_VSA_FPOS', 'E_ang', 'logS', 'MNDO_LUMO', 'SlogP_VSA5', 'SMR_VSA3', 'PEOE_VSA_NEG', 'GCUT_SMR_3', 'AM1_LUMO', 'CID'], dtype='object'"
-    },
-    "Iteration 3": {
-        "num_features": 100,
-        "variance_threshold": 0.005,
-        "kernel": "rbf",
-        "f1_score": 0.9696969696969697,
-        "accuracy": 0.9583333333333334,
-        "features_used": "['vsurf_CW1', 'KierA2', 'AM1_HOMO', 'Q_VSA_POS', 'a_aro', 'vsurf_DD12', 'chi0', 'vsurf_D8', 'PEOE_VSA_PNEG', 'PEOE_VSA+3', 'diameter', 'a_count', 'vsurf_HB3', 'b_single', 'vsurf_IW1', 'AM1_IP', 'b_double', 'SMR_VSA1', 'PEOE_PC-', 'PEOE_VSA+5', 'opr_brigid', 'vsa_pol', 'rsynth', 'chi1', 'PEOE_VSA-6', 'MNDO_Eele', 'vsa_hyd', 'vsurf_EDmin3', 'PEOE_VSA+6', 'PUBCHEM_EXACT_MASS', 'vsurf_EWmin3', 'a_nN', 'a_don', 'AM1_E', 'VDistEq', 'PUBCHEM_CACTVS_TPSA', 'PEOE_VSA_HYD', 'E_stb', 'SMR_VSA7', 'chi1_C', 'vsurf_Wp3', 'logP(o/w', 'SMR', 'b_ar', 'E', 'KierA1', 'std_dim1', 'KierFlex', 'SMR_VSA2', 'radius', 'npr2', 'SlogP_VSA0', 'SMR_VSA5', 'chi1v', 'b_max1len', 'PEOE_PC+', 'GCUT_SLOGP_0', 'b_1rotN', 'BCUT_PEOE_0', 'SlogP_VSA7', 'SlogP_VSA1', 'PEOE_VSA_POS', 'PEOE_VSA+0', 'E_ele', 'lip_don', 'SMR_VSA4', 'PEOE_VSA_FPOS', 'E_nb', 'vsurf_CW2', 'vsurf_IW6', 'BCUT_SMR_0', 'PEOE_VSA-5', 'E_ang', 'BCUT_PEOE_3', 'KierA3', 'SlogP_VSA3', 'BCUT_SMR_3', 'PEOE_VSA+2', 'std_dim2', 'pmi1', 'PEOE_VSA-3', 'BCUT_SLOGP_0', 'GCUT_PEOE_3', 'SMR_VSA6', 'MNDO_HF', 'b_rotN', 'Kier3', 'PEOE_VSA_FNEG', 'SMR_VSA3', 'GCUT_SMR_3', 'vsa_acc', 'PEOE_VSA_NEG', 'logS', 'vsa_other', 'PEOE_VSA-4', 'AM1_LUMO', 'SlogP_VSA5', 'PM3_LUMO', 'MNDO_LUMO', 'CID'], dtype='object'"
-    },
-    "Iteration 4": {
-        "num_features": 100,
-        "variance_threshold": 0.005,
-        "kernel": "rbf",
-        "f1_score": 0.9523809523809523,
-        "accuracy": 0.9375,
-        "features_used": "['vsurf_D8', 'MNDO_dipole', 'b_count', 'rings', 'PUBCHEM_XLOGP3_AA', 'vsurf_W2', 'chi1', 'SlogP_VSA2', 'pmi3', 'E_oop', 'vsurf_EWmin1', 'vsurf_EWmin3', 'GCUT_SLOGP_3', 'E_nb', 'SMR_VSA1', 'BCUT_PEOE_0', 'E_strain', 'pmi2', 'vsurf_IW7', 'zagreb', 'lip_acc', 'E_sol', 'pmi1', 'GCUT_SLOGP_0', 'std_dim2', 'chi1v_C', 'PEOE_VSA-0', 'SMR_VSA5', 'KierA1', 'vsurf_IW4', 'vsurf_CW2', 'MNDO_E', 'TPSA', 'VDistMa', 'radius', 'E_str', 'Q_VSA_POS', 'vsurf_IW6', 'KierA3', 'E_vdw', 'PEOE_PC-', 'weinerPol', 'b_max1len', 'BCUT_SLOGP_3', 'logP(o/w', 'a_donacc', 'vsurf_IW5', 'E_stb', 'Kier3', 'BCUT_SMR_0', 'SMR_VSA2', 'chi1v', 'a_nO', 'VDistEq', 'PEOE_VSA_POS', 'vsurf_IW1', 'BCUT_SLOGP_0', 'PEOE_VSA-6', 'PEOE_VSA_PNEG', 'PEOE_VSA-5', 'PEOE_VSA-3', 'SMR_VSA7', 'chi1_C', 'MNDO_HF', 'rgyr', 'bpol', 'npr1', 'PEOE_VSA+0', 'b_ar', 'vsa_other', 'SMR_VSA6', 'PUBCHEM_CACTVS_TAUTO_COUNT', 'PEOE_VSA_POL', 'npr2', 'vsa_acc', 'b_rotN', 'vsa_hyd', 'PEOE_VSA_FPOS', 'SlogP_VSA1', 'opr_nrot', 'GCUT_PEOE_3', 'PEOE_VSA_NEG', 'E_ele', 'vsa_pol', 'PEOE_VSA_FNEG', 'logS', 'BCUT_PEOE_3', 'PEOE_VSA+2', 'E_ang', 'BCUT_SMR_3', 'SlogP_VSA3', 'MNDO_LUMO', 'SMR_VSA3', 'SMR_VSA4', 'SlogP_VSA5', 'AM1_LUMO', 'GCUT_SMR_3', 'PEOE_VSA-4', 'PM3_LUMO', 'CID'], dtype='object'"
-    },
-    "Iteration 5": {
-        "num_features": 100,
-        "variance_threshold": 0.005,
-        "kernel": "rbf",
-        "f1_score": 0.945945945945946,
+        "num_features": 75,
+        "variance_threshold": 0.001,
+        "kernel": "linear",
+        "f1_score": 0.9411764705882354,
         "accuracy": 0.9166666666666666,
-        "features_used": "['chi1v', 'PM3_IP', 'vsurf_IW7', 'opr_leadlike', 'rgyr', 'vsurf_D7', 'PEOE_VSA-6', 'BCUT_SLOGP_2', 'a_donacc', 'rsynth', 'a_heavy', 'vsurf_CW4', 'SlogP_VSA2', 'chi0_C', 'vsa_don', 'vsurf_D4', 'vsurf_IW4', 'balabanJ', 'PEOE_VSA+0', 'vsurf_Wp3', 'PM3_HF', 'vsurf_IW5', 'vsurf_EWmin1', 'PUBCHEM_XLOGP3_AA', 'Kier2', 'a_acc', 'vsurf_CW2', 'PEOE_PC+', 'npr1', 'SlogP_VSA7', 'pmi2', 'b_ar', 'PUBCHEM_HEAVY_ATOM_COUNT', 'E', 'rings', 'GCUT_SLOGP_0', 'diameter', 'pmi1', 'E_nb', 'b_single', 'PEOE_VSA-0', 'E_stb', 'PEOE_VSA-1', 'b_max1len', 'E_sol', 'PEOE_VSA+3', 'KierA1', 'PEOE_VSA_NEG', 'a_IC', 'std_dim2', 'vsa_hyd', 'vsurf_IW6', 'npr2', 'vdw_area', 'opr_brigid', 'a_nO', 'PUBCHEM_CACTVS_TPSA', 'bpol', 'PUBCHEM_CACTVS_TAUTO_COUNT', 'SMR_VSA1', 'PEOE_VSA_POL', 'MNDO_HF', 'SMR_VSA7', 'SlogP_VSA1', 'KierFlex', 'SMR_VSA2', 'PEOE_VSA-5', 'PEOE_VSA_PNEG', 'a_nN', 'BCUT_PEOE_0', 'SlogP_VSA3', 'PEOE_VSA+2', 'logP(o/w', 'SlogP_VSA0', 'PEOE_VSA-3', 'PEOE_VSA_FNEG', 'b_rotN', 'GCUT_SMR_3', 'SMR_VSA3', 'E_ele', 'GCUT_PEOE_3', 'BCUT_PEOE_3', 'BCUT_SMR_0', 'PEOE_VSA_FPOS', 'E_ang', 'vsa_pol', 'vsa_acc', 'BCUT_SMR_3', 'logS', 'vsa_other', 'Kier3', 'KierA3', 'SMR_VSA4', 'PM3_LUMO', 'MNDO_LUMO', 'PEOE_VSA-4', 'BCUT_SLOGP_0', 'SlogP_VSA5', 'AM1_LUMO', 'CID'], dtype='object'"
+        "area_under_roc": 0.9186813186813186,
+        "features_used": "Index(['b_rotN', 'b_max1len', 'a_IC', 'vsurf_ID3', 'Kier3', 'GCUT_SLOGP_2',\n       'E_sol', 'SMR_VSA2', 'VDistEq', 'chi1_C', 'PEOE_PC+', 'PEOE_VSA+3',\n       'chi1v_C', 'a_nS', 'GCUT_SMR_3', 'BCUT_SLOGP_2', 'GCUT_SLOGP_0',\n       'vsa_other', 'a_don', 'vsurf_IW1', 'Kier2', 'vsa_pol', 'pmi1',\n       'vsurf_IW5', 'SlogP_VSA1', 'b_1rotN', 'PEOE_VSA_NEG', 'GCUT_SLOGP_3',\n       'PEOE_PC-', 'npr2', 'a_nN', 'PEOE_VSA+1', 'BCUT_SMR_0', 'GCUT_PEOE_0',\n       'GCUT_SLOGP_1', 'a_aro', 'SlogP_VSA7', 'BCUT_SLOGP_0', 'MNDO_HF',\n       'vsa_hyd', 'GCUT_SMR_0', 'bpol', 'GCUT_SMR_2', 'PEOE_VSA_FPOL',\n       'PEOE_VSA-6', 'PEOE_VSA-3', 'b_rotR', 'BCUT_PEOE_0', 'PEOE_VSA_FHYD',\n       'SlogP_VSA0', 'PUBCHEM_CACTVS_TAUTO_COUNT', 'PEOE_VSA_POL',\n       'BCUT_SMR_3', 'E_ang', 'PEOE_VSA_POS', 'GCUT_PEOE_3', 'SMR_VSA6',\n       'PEOE_VSA_FPOS', 'PEOE_VSA+2', 'SlogP_VSA3', 'BCUT_PEOE_3', 'logS',\n       'KierA3', 'PEOE_VSA-4', 'b_1rotR', 'PM3_LUMO', 'PEOE_VSA_FNEG',\n       'vsa_acc', 'MNDO_LUMO', 'SMR_VSA4', 'E_ele', 'SMR_VSA3', 'GCUT_PEOE_1',\n       'AM1_LUMO', 'SlogP_VSA5'],\n      dtype='object')"
+    },
+    "Summary": {
+        "average_f1_score": 0.9411764705882354,
+        "average_accuracy": 0.9166666666666666
     }
 }
