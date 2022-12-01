@@ -1,9 +1,3 @@
-'''
-TODO
-- Feature selection
-- Tune hyperparams
-'''
-
 # Imports
 from sklearn import svm
 import pandas as pd
@@ -15,12 +9,36 @@ from sklearn.ensemble import RandomForestClassifier
 import numpy as np
 import json
 import matplotlib.pyplot as plt
+import argparse
 
-NUMBER_OF_ITERATIONS = 1 # Number of iterations to run
-NUMBER_OF_FEATURES = 75 # Number of features to use
-VARIANCE_THRESHOLD = 0.001 # Variance threshold, between 0.0 and 1.0
-SVM_KERNEL = 'linear' # SVM kernel to use. 'rbf', 'linear', 'poly', 'sigmoid', 'precomputed'.
-
+# Argument input for hyperparameters. Default to optimal model if no arguments provided.
+parser = argparse.ArgumentParser()
+parser.add_argument('-i', '--iterations', required=False, help='Number of iterations to run.')
+parser.add_argument('-f', '--features', required=False, help='Number of features to use.')
+parser.add_argument('-t', '--threshold', required=False, help='Variance threshold to use.')
+parser.add_argument('-k', '--kernel', required=False, help="SVM kernel to use. 'rbf', 'linear', 'poly', 'sigmoid', 'precomputed'.")
+opts = parser.parse_args()
+if opts.iterations:
+    NUMBER_OF_ITERATIONS = int(opts.iterations)
+else:
+    NUMBER_OF_ITERATIONS = 5
+if opts.features:
+    NUMBER_OF_FEATURES = int(opts.features)
+else:
+    NUMBER_OF_FEATURES = 75
+if opts.threshold:
+    VARIANCE_THRESHOLD = float(opts.threshold)
+else:
+    VARIANCE_THRESHOLD = 0.001
+if opts.kernel:
+    SVM_KERNEL = str(opts.kernel)
+else:
+    SVM_KERNEL = 'linear'
+print('\nHYPERPARAMETERS:\n')
+print('Number of iterations: ' + str(NUMBER_OF_ITERATIONS))
+print('Number of features to use: ' + str(NUMBER_OF_FEATURES))
+print('Variance threshold to use: ' + str(VARIANCE_THRESHOLD))
+print('Kernel: ' + str(SVM_KERNEL))
 
 def main(num_features, var_thresh, svm_kernel=None):
 
@@ -78,6 +96,8 @@ def main(num_features, var_thresh, svm_kernel=None):
 
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.2, shuffle=True)
+    del x_data
+    del y_data
 
     # Build SVM model
     clf = svm.SVC(kernel=svm_kernel)
@@ -95,69 +115,94 @@ def main(num_features, var_thresh, svm_kernel=None):
     f1 = f1_score(y_test['Class'].to_numpy(), predictions)
     accuracy = accuracy_score(y_test['Class'].to_numpy(), predictions)
 
-    # Performance
-    print("Precision: " + str(precision))
-    print("Recall: " + str(recall))
-    print("F1-Score: " + str(f1))
-    print("Accuracy: " + str(accuracy))
+    # ROC and AUC-ROC
     false_positive_rate, true_positive_rate, threshold = roc_curve(y_test['Class'].to_numpy(), predictions)
+    plt.clf()
     plt.plot(false_positive_rate, true_positive_rate)
     plt.xlabel("False Positive Rate")
     plt.ylabel("True Positive Rate")
     plt.title("ROC-Curve")
     area_under_roc = roc_auc_score(y_test['Class'].to_numpy(), predictions)
-    return num_features, var_thresh, svm_kernel, f1, accuracy, most_important_features, plt, area_under_roc
+
+    return f1, accuracy, most_important_features, plt, area_under_roc
 
 
 if __name__ == '__main__':
     iterations = NUMBER_OF_ITERATIONS
+
+    # Initialize log book
     log_book = {}
     '''
     { 
-        iteration: [
-            {
-                iteration: int
-                num_features: int,
-                variance_threshold: float,
-                svm_kernel = 'rbf', 'linear', 'poly', 'sigmoid', 'precomputed',
-                precision: float,
-                recall: float,
-                f1_score: float,
-                accuracy: float,
-                features_used: list
-            }
-        ]
-    }
+        Iteration: {
+            f1_score: float,
+            accuracy: float,
+            area_under_roc: float
+        }
+        Summary: {
+            num_features: int,
+            variance_threshold: float,
+            svm_kernel: 'rbf', 'linear', 'poly', 'sigmoid', 'precomputed',
+            average_f1_score: float,
+            average_accuracy: float,
+            features_present_in_all: list
+        }
     '''
+    all_features_used = []
+
+    # Run model
     for i in range(iterations):
         i = i + 1
         print('\n===========Iteration ' + str(i) + '===========\n')
         if SVM_KERNEL == None:
-            num_features, var_threshold, kernel, f1score, accuracy, features_used, roc, area_under_roc = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD)
+            f1score, accuracy, features_used, roc, area_under_roc = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD)
+            features_used = features_used.tolist()
         else:
-            num_features, var_threshold, kernel, f1score, accuracy, features_used, roc, area_under_roc = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD, svm_kernel=SVM_KERNEL)
+            f1score, accuracy, features_used, roc, area_under_roc = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD, svm_kernel=SVM_KERNEL)
+            features_used = features_used.tolist()
+        
+        # Add to log book
         log_book["Iteration " + str(i)] = {
-            'num_features': num_features,
-            'variance_threshold': var_threshold,
-            'kernel': kernel,
             'f1_score': f1score,
             'accuracy': accuracy,
-            'area_under_roc': area_under_roc,
-            'features_used': str(features_used)
-        }
+            'area_under_roc': area_under_roc
+        }    
+        all_features_used.append(features_used)
+
+        # Save ROC curve as PNG
         roc.savefig('Iteration ' + str(i) + ' ROC Curve')
+    
+    # Calculate average f1 score, accuracy, and features present in all iterations
     average_f1_score = 0
     average_accuracy = 0
+    average_auc = 0
     for iteration in log_book:
         average_f1_score = average_f1_score + log_book[iteration]['f1_score']
         average_accuracy = average_accuracy + log_book[iteration]['accuracy']
-    average_accuracy = average_accuracy / NUMBER_OF_ITERATIONS
-    average_f1_score = average_f1_score / NUMBER_OF_ITERATIONS
+        average_auc = average_auc + log_book[iteration]['area_under_roc']
+    average_accuracy = average_accuracy / iterations
+    average_f1_score = average_f1_score / iterations
+    average_auc = average_auc / iterations
+    feature_intersection = set.intersection(*map(set,all_features_used))
+    feature_intersection = sorted(list(feature_intersection))
     log_book["Summary"] = {
+        'num_features': NUMBER_OF_FEATURES,
+        'variance_threshold': VARIANCE_THRESHOLD,
+        'kernel': SVM_KERNEL,
         'average_f1_score': average_f1_score,
-        'average_accuracy': average_accuracy
+        'average_accuracy': average_accuracy,
+        'average_auc': average_auc,
+        'features_present_in_all': str(feature_intersection)
     }
+
+    # Save log book as JSON
     with open("log_book.json", "w") as write_file:
         json.dump(log_book, write_file, indent=4)
+
+    # User messages
+    print("ROC Curves are saved to working directory.")
+    print("Log book is saved to working directory.")
+    print("Enter 'cat log_book.json' to view performance of each iteration.")
+    
     
     
