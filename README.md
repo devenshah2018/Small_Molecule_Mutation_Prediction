@@ -46,7 +46,7 @@ Example hyperparameters:
 C:\Model>py driver.py -i 1 -f 50 -t 0.005 -k rbf
 
 
-## Access Log Book
+## Access Log Book After Execution
 C:\Model>cd Performance_Results
 
 C:\Model>cat log_book.json
