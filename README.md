@@ -7,7 +7,7 @@ The objective of the support vector machine is to identify which compounds have 
 - Save driver.py, 'chemical_compounds.csv', and 'requirements.txt' in the same directory.
 - Python 3.7 or higher
 - To install requirements, navigate to the appropriate directory in the CLI and enter the following command:
-- 
+
 C:\Model>py -m pip -v install -r requirements.txt
 
 ## Usage
