@@ -5,7 +5,7 @@
 
 ## Prerequisites
 - Save driver.py and 'chemical_compounds.csv' in the same directory.
-- Python7 or higher
+- Python3.7 or higher
 
 ## Usage
 C:\Model>driver.py [-h] [-i ITERATIONS] [-f FEATURES] [-t THRESHOLD] [-k KERNEL]
@@ -14,13 +14,13 @@ Optional Arguments:
 
 -h Help message.
 
--i Number of iterations to run. Default 5
+-i Number of iterations to run. Default 50
 
--f Number of features to use. Default 75
+-f Number of features to use. Default 50
 
 -t Variance threshold to use. Default 0.001
 
--k Kernel type to use. Default 'linear'
+-k Kernel type to use. Default linear
 
 
 ## Output
@@ -28,7 +28,7 @@ The files below are save to the current working directory after execution:
 1) Log book containing the performance of each iteration and a summary of all iterations (see sample_log_book.json in repository).
 2) ROC Curve for each iteration (see Iteration 1 ROC Curve.png in repository).
 
-## Basic Execution
+## Basic Execution with default hyperparameters
 
 C:\Model>py driver.py
 
