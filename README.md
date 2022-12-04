@@ -5,7 +5,7 @@
 
 ## Prerequisites
 - Save driver.py and 'chemical_compounds.csv' in the same directory.
-- Python3.7 or higher
+- Python 3.7 or higher
 
 ## Usage
 C:\Model>driver.py [-h] [-i ITERATIONS] [-f FEATURES] [-t THRESHOLD] [-k KERNEL]
