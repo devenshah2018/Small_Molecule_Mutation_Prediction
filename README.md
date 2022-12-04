@@ -1,7 +1,7 @@
 # Small Molecule Drug Development Driver
 
 ## Overview
-
+The objective of the support vector machine is to identify which compounds have the ability to inhibit the BRAF V600E mutation and to programmatically determine which attributes affect the identification. Using chemical compounds retrieved from PubChem, the model is able to identify the compounds with high performance.
 
 ## Prerequisites
 - Save driver.py and 'chemical_compounds.csv' in the same directory.
@@ -42,7 +42,7 @@ Example hyperparameters:
 C:\Model>py driver.py -i 1 -f 50 -t 0.005 -k rbf
 
 
-## Access log book
+## Access Log Book
 C:\Model>cd Performance_Results
 
 C:\Model>cat log_book.json
