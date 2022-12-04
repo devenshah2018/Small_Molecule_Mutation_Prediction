@@ -24,8 +24,8 @@ Optional Arguments:
 
 
 ## Output
-The files below are save to the current working directory after execution:
-1) Log book containing the performance of each iteration and a summary of all iterations (see sample_log_book.json in repository).
+The files below are saved to the directory 'Performance_Results' created in current working directory after execution:
+1) Log book containing the performance of each iteration and a summary of all iterations
 2) ROC Curve for each iteration (see Iteration 1 ROC Curve.png in repository).
 
 ## Basic Execution with Default Hyperparameters
@@ -38,3 +38,8 @@ C:\Model>py driver.py
 
 C:\Model>py driver.py -i 1 -f 50 -t 0.005 -k rbf
 
+--------------------------------------------------------------------
+
+## Access log book
+C:\Model>cd Performance_Results
+C:\Model>cat log_book.json
