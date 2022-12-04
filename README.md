@@ -33,9 +33,16 @@ The files below are saved to the directory 'Performance_Results' created in curr
 C:\Model>py driver.py
 
 ## Tuned Execution with Desired Hyperparameters
+Example hyperparameters:
+- 1 iteration
+- 50 features used
+- 0.005 variance threshold
+- RBF kernel
 
 C:\Model>py driver.py -i 1 -f 50 -t 0.005 -k rbf
 
+
 ## Access log book
 C:\Model>cd Performance_Results
+
 C:\Model>cat log_book.json
