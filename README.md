@@ -32,13 +32,9 @@ The files below are saved to the directory 'Performance_Results' created in curr
 
 C:\Model>py driver.py
 
---------------------------------------------------------------------
-
 ## Tuned Execution with Desired Hyperparameters
 
 C:\Model>py driver.py -i 1 -f 50 -t 0.005 -k rbf
-
---------------------------------------------------------------------
 
 ## Access log book
 C:\Model>cd Performance_Results
