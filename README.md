@@ -4,8 +4,10 @@
 The objective of the support vector machine is to identify which compounds have the ability to inhibit the BRAF V600E mutation and to programmatically determine which attributes affect the identification. Using chemical compounds retrieved from PubChem, the model is able to identify the compounds with high performance.
 
 ## Prerequisites
-- Save driver.py and 'chemical_compounds.csv' in the same directory.
+- Save driver.py, 'chemical_compounds.csv', and 'requirements.txt' in the same directory.
 - Python 3.7 or higher
+- To install requirements, navigate to the appropriate directory in the CLI and enter the following command:
+C:\Model>py -m pip -v install -r requirements.txt
 
 ## Usage
 C:\Model>driver.py [-h] [-i ITERATIONS] [-f FEATURES] [-t THRESHOLD] [-k KERNEL]
