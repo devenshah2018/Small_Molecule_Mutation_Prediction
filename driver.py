@@ -12,8 +12,9 @@ import matplotlib.pyplot as plt
 import argparse
 import os
 import shutil
+from typing import Union
 
-# Argument input for hyperparameters. Default to optimal model if no arguments provided.
+# Argument input for hyperparameters. Default to optimal values if no arguments provided.
 parser = argparse.ArgumentParser()
 parser.add_argument('-i', '--iterations', required=False, help='Number of iterations to run.')
 parser.add_argument('-f', '--features', required=False, help='Number of features to use.')
@@ -42,19 +43,27 @@ print('Number of features to use: ' + str(NUMBER_OF_FEATURES))
 print('Variance threshold to use: ' + str(VARIANCE_THRESHOLD))
 print('Kernel: ' + str(SVM_KERNEL))
 
-def main(num_features, var_thresh, svm_kernel=None):
 
+def index_of_minimum(the_list: list) -> int:
+    min = the_list[0]
+    index = 0
+    for i in range(1,len(the_list)):
+        if the_list[i] < min:
+            min = the_list[i]
+            index = i
+    return index
+
+
+def main(num_features: int, var_thresh: float, svm_kernel: str = None) -> Union[float, list, object, float, float, float]:
     # Ignore warnings
     warnings.filterwarnings("ignore")
 
-    # Build dataframe and remove instances with null attributes
+    # Build dataframe, set CID as index, remove instances with null attributes
     df = pd.read_csv('chemical_compounds.csv')
-    original_total_tuples = df.shape[0]
-    df.drop(labels=['CID'], axis=1, inplace=True)
+    df.set_index('CID', inplace=True)
     df.dropna(inplace=True)
-    updated_total_tuples = df.shape[0]
 
-    # Encode non-numerical features
+    # Encode features with object data type
     non_num_column_index = []
     index = 0
     for data_type in df.dtypes:
@@ -92,6 +101,10 @@ def main(num_features, var_thresh, svm_kernel=None):
     most_important_features = all_features[sorted_importances_index]
     most_important_features = most_important_features[-1 * num_features:]
     x_data = x_data[most_important_features]
+    del all_features
+    del random_forest
+    del importances
+    del sorted_importances_index
 
     # Train-test split
     X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, test_size=0.2, shuffle=True)
@@ -115,6 +128,7 @@ def main(num_features, var_thresh, svm_kernel=None):
 
     # ROC and AUC-ROC
     false_positive_rate, true_positive_rate, threshold = roc_curve(y_test['Class'].to_numpy(), predictions)
+    del threshold
     plt.clf()
     plt.plot(false_positive_rate, true_positive_rate)
     plt.xlabel("False Positive Rate")
@@ -190,6 +204,11 @@ if __name__ == '__main__':
         'average_auc': average_auc,
         'features_present_in_all': str(feature_intersection)
     }
+    del average_accuracy
+    del average_auc
+    del average_precision
+    del average_recall
+    del feature_intersection
 
     # Save log book as JSON
     with open(result_destination + "log_book.json", "w") as write_file:
@@ -220,34 +239,10 @@ if __name__ == '__main__':
     if len(perfect_performing_iterations) == 0:
         perfect_performing_iterations = 'None'
     print("Iterations with perfect performance: " + perfect_performing_iterations)
-    min = all_precision[0]
-    index = 0
-    for i in range(1,len(all_precision)):
-        if all_precision[i] < min:
-            min = all_precision[i]
-            index = i
-    print("Iteration " + str(index + 1) + " had the lowest precision: " + str(all_precision[index]))
-    min = all_recall[0]
-    index = 0
-    for i in range(1,len(all_recall)):
-        if all_recall[i] < min:
-            min = all_recall[i]
-            index = i
-    print("Iteration " + str(index + 1) + " had the lowest recall: " + str(all_recall[index]))
-    min = all_accuracy[0]
-    index = 0
-    for i in range(1,len(all_accuracy)):
-        if all_accuracy[i] < min:
-            min = all_accuracy[i]
-            index = i
-    print("Iteration " + str(index + 1) + " had the lowest accuracy: " + str(all_accuracy[index]))
-    min = all_auc[0]
-    index = 0
-    for i in range(1,len(all_auc)):
-        if all_auc[i] < min:
-            min = all_auc[i]
-            index = i
-    print("Iteration " + str(index + 1) + " had the lowest accuracy: " + str(all_auc[index]))
+    print("Iteration " + str(index_of_minimum(all_precision) + 1) + " had the lowest precision: " + str(all_precision[index_of_minimum(all_precision)]))
+    print("Iteration " + str(index_of_minimum(all_recall) + 1) + " had the lowest recall: " + str(all_recall[index_of_minimum(all_recall)]))
+    print("Iteration " + str(index_of_minimum(all_accuracy) + 1) + " had the lowest accuracy: " + str(all_accuracy[index_of_minimum(all_accuracy)]))
+    print("Iteration " + str(index_of_minimum(all_auc) + 1) + " had the lowest accuracy: " + str(all_auc[index_of_minimum(all_auc)]))
  
     # User messages for where files are saved and accessing log book
     print('\n=========ACCESSING FILES=========\n')  
