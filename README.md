@@ -4,7 +4,7 @@
 The objective of the support vector machine is to identify which compounds have the ability to inhibit the BRAF V600E mutation and to programmatically determine which attributes affect the identification. Using chemical compounds retrieved from PubChem, the model is able to identify the compounds with high performance.
 
 ## Prerequisites
-- Save driver.py, 'chemical_compounds.csv', and 'requirements.txt' in the same directory.
+- Save 'braf_classifier.py', 'chemical_compounds.csv', and 'requirements.txt' in the same directory.
 - Python 3.7 or higher
 
 To install requirements, navigate to the appropriate directory in the CLI and enter the following command:
@@ -12,7 +12,7 @@ To install requirements, navigate to the appropriate directory in the CLI and en
 **C:\Model>py -m pip -v install -r requirements.txt**
 
 ## Usage
-C:\Model>driver.py [-h] [-i ITERATIONS] [-f FEATURES] [-t THRESHOLD] [-k KERNEL]
+C:\Model>py braf_classifier.py [-h] [-i ITERATIONS] [-f FEATURES] [-t THRESHOLD] [-k KERNEL]
 
 Optional Arguments:
 
@@ -34,7 +34,7 @@ The files below are saved to the directory 'Performance_Results' created in curr
 
 ## Basic Execution with Default Hyperparameters
 
-C:\Model>py driver.py
+C:\Model>py braf_classifier.py
 
 ## Tuned Execution with Desired Hyperparameters
 Example hyperparameters:
@@ -43,7 +43,7 @@ Example hyperparameters:
 - 0.005 variance threshold
 - RBF kernel
 
-C:\Model>py driver.py -i 1 -f 50 -t 0.005 -k rbf
+C:\Model>py braf_classifier.py -i 1 -f 50 -t 0.005 -k rbf
 
 
 ## Access Log Book After Execution
