@@ -1,3 +1,30 @@
+'''
+AUTHORS: Deven Shah and Ethan Vrooman
+
+================ VARIABLE, FUNCTION, etc. NAMING CONVENTIONS ==================
+<ALL CAPITOL LETTERS>:  Indicates a hyperparameter. If desired, initialized at CLI.
+<all small letters>:  A transient variable=.
+
+========================== MODIFICATION HISTORY ===============================
+
+DATE                MODIFICATION
+--------------------------------------------------------------------------------------
+11/19/22            Program created. Single iteration of SVM model. Computes precision,
+                    recall, and accuracy.
+11/21/22            Model runs on 5 iterations. Calculates f1-score as well.
+11/28/22            Removes null instances. Removes quasi-constant features. Encodes
+                    features with unknown data type.
+11/29/22            Added default hyperparameters (with user input), Random Forest 
+                    Classifier for feature importance, and the ability to create a log book.
+11/30/22            Added ROC-Curve (saves figure) and average accuracy, f1-score, and AUC-ROC.
+12/3/22             Console output cleanup, directory creation, and added average precision/recall.
+                    Removed average f1-score.
+12/12/22            Program finalized. Concise console output. Detailed log book. Default 
+                    hyperparameters set to optimal values.
+
+====================== END OF MODIFICATION HISTORY ============================
+'''
+
 # Imports
 from sklearn import svm
 import pandas as pd
@@ -45,6 +72,15 @@ print('Kernel: ' + str(SVM_KERNEL))
 
 
 def index_of_minimum(the_list: list) -> int:
+    """
+    Returns the index of the smallest element in a list of integers.
+
+    Arguments:
+        the_list {list} -- The list to be traversed.
+    
+    Returns:
+        int -- The index of the smallest element in the list.
+    """
     min = the_list[0]
     index = 0
     for i in range(1,len(the_list)):
@@ -55,6 +91,24 @@ def index_of_minimum(the_list: list) -> int:
 
 
 def main(num_features: int, var_thresh: float, svm_kernel: str = None) -> Union[float, list, object, float, float, float]:
+    """
+    Executes the SVM model with appropriate data optimization and feature selection. Evaluates
+    performance.
+
+    Arguments:
+        num_features {int} -- The number of features to use.
+        var_threshold {float} -- The minimum variance for features to have.
+        svm_kernel {str} -- The kernel function the SVC uses to fit dataset.
+    
+    Returns:
+        float -- The accuracy of the model.
+        list -- Features used in iteration.
+        object -- ROC-Curve figure.
+        float -- The AUC-ROC of the model.
+        float -- The precision of the model.
+        float -- The recall of the model.
+    """
+
     # Ignore warnings
     warnings.filterwarnings("ignore")
 
@@ -111,22 +165,22 @@ def main(num_features: int, var_thresh: float, svm_kernel: str = None) -> Union[
     del x_data
     del y_data
 
-    # Build SVM model
+    # Build and fit SVM model using training dataset.
     clf = svm.SVC(kernel=svm_kernel)
     clf.fit(X_train, y_train)
 
-    # Predict
+    # Identify targets with the fitted SVC using the testing dataset.
     predictions = clf.predict(X_test)
     prediction_df = pd.DataFrame()
     prediction_df['Prediction'] = predictions
     prediction_df['Validation'] = y_test['Class'].to_numpy()
 
-    # Precision, Recall, F1-Score, Accuracy
+    # Calculate precision, recall, and accuracy
     precision = precision_score(y_test['Class'].to_numpy(), predictions)
     recall = recall_score(y_test['Class'].to_numpy(), predictions)
     accuracy = accuracy_score(y_test['Class'].to_numpy(), predictions)
 
-    # ROC and AUC-ROC
+    # Plot ROC-curve and calculate AUC-ROC.
     false_positive_rate, true_positive_rate, threshold = roc_curve(y_test['Class'].to_numpy(), predictions)
     del threshold
     plt.clf()
@@ -141,9 +195,10 @@ def main(num_features: int, var_thresh: float, svm_kernel: str = None) -> Union[
 
 
 if __name__ == '__main__':
+    # Avoid using hyperparameters during assignment.
     iterations = NUMBER_OF_ITERATIONS
 
-    # Create directory in current working directory to store performance results
+    # Create directory in current working directory to store performance results.
     shutil.rmtree('Performance_Results')
     try:
         os.makedirs('Performance_Results')
@@ -155,7 +210,7 @@ if __name__ == '__main__':
     log_book = {}
     all_features_used = []
 
-    # Run model
+    # Run model for determined iterations.
     for i in range(iterations):
         i = i + 1
         print('\nIteration ' + str(i) + '===========\n')
@@ -166,7 +221,7 @@ if __name__ == '__main__':
             accuracy, features_used, roc, area_under_roc, precision, recall = main(num_features=NUMBER_OF_FEATURES, var_thresh=VARIANCE_THRESHOLD, svm_kernel=SVM_KERNEL)
             features_used = features_used.tolist()
         
-        # Add to log book
+        # Add iteration performance to log book
         log_book["Iteration " + str(i)] = {
             'precision': precision,
             'recall': recall,
@@ -175,10 +230,10 @@ if __name__ == '__main__':
         }    
         all_features_used.append(features_used)
 
-        # Save ROC curve as PNG
+        # Save ROC curve as PNG in the created directory.
         roc.savefig(result_destination + 'Iteration_' + str(i) + '_ROC_Curve.png')
     
-    # Calculate average f1 score, accuracy, and features present in all iterations
+    # Calculate average f1-score, accuracy, and features present in all iterations
     average_accuracy = 0
     average_auc = 0
     average_precision = 0
@@ -210,11 +265,11 @@ if __name__ == '__main__':
     del average_recall
     del feature_intersection
 
-    # Save log book as JSON
+    # Save log book as JSON in created directory.
     with open(result_destination + "log_book.json", "w") as write_file:
         json.dump(log_book, write_file, indent=4)
     
-    # Print detailed summary
+    # Print detailed summary after all iterations are finished.
     all_precision = []
     all_recall = []
     all_accuracy = []
@@ -244,7 +299,7 @@ if __name__ == '__main__':
     print("Iteration " + str(index_of_minimum(all_accuracy) + 1) + " had the lowest accuracy: " + str(all_accuracy[index_of_minimum(all_accuracy)]))
     print("Iteration " + str(index_of_minimum(all_auc) + 1) + " had the lowest accuracy: " + str(all_auc[index_of_minimum(all_auc)]))
  
-    # User messages for where files are saved and accessing log book
+    # Print user messages explaining where files are saved and accessing log book.
     print('\n=========ACCESSING FILES=========\n')  
     print("ROC Curves are saved to: /Performance_Results.")
     print("Log book is saved to: /Performance_Results.")
