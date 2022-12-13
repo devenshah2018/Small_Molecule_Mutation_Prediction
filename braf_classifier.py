@@ -195,11 +195,14 @@ def main(num_features: int, var_thresh: float, svm_kernel: str = None) -> Union[
 
 
 if __name__ == '__main__':
-
+    # Avoid using hyperparameters during assignment.
     iterations = NUMBER_OF_ITERATIONS
 
     # Create directory in current working directory to store performance results.
-    shutil.rmtree('Performance_Results')
+    try:      
+        shutil.rmtree('Performance_Results')
+    except FileNotFoundError:
+        pass
     try:
         os.makedirs('Performance_Results')
     except FileExistsError:
