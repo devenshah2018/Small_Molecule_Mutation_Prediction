@@ -300,7 +300,7 @@ if __name__ == '__main__':
     print("Iteration " + str(index_of_minimum(all_precision) + 1) + " had the lowest precision: " + str(all_precision[index_of_minimum(all_precision)]))
     print("Iteration " + str(index_of_minimum(all_recall) + 1) + " had the lowest recall: " + str(all_recall[index_of_minimum(all_recall)]))
     print("Iteration " + str(index_of_minimum(all_accuracy) + 1) + " had the lowest accuracy: " + str(all_accuracy[index_of_minimum(all_accuracy)]))
-    print("Iteration " + str(index_of_minimum(all_auc) + 1) + " had the lowest accuracy: " + str(all_auc[index_of_minimum(all_auc)]))
+    print("Iteration " + str(index_of_minimum(all_auc) + 1) + " had the lowest AUC-ROC: " + str(all_auc[index_of_minimum(all_auc)]))
  
     # Print user messages explaining where files are saved and accessing log book.
     print('\n=========ACCESSING FILES=========\n')  
