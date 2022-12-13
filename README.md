@@ -5,7 +5,7 @@ The objective of the support vector machine is to identify which compounds have 
 
 ## Prerequisites
 - Save 'braf_classifier.py', 'chemical_compounds.csv', and 'requirements.txt' in the same directory.
-- Python 3.7 or higher
+- Python 3.9 or higher
 
 To install requirements, navigate to the appropriate directory in the CLI and enter the following command:
 
