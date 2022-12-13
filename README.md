@@ -49,4 +49,4 @@ C:\Model>py braf_classifier.py -i 1 -f 50 -t 0.005 -k rbf
 ## Access Log Book After Execution
 C:\Model>cd Performance_Results
 
-C:\Model>cat log_book.json
+C:\Model\Performance_Results>cat log_book.json
